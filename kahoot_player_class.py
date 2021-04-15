@@ -46,11 +46,15 @@ class Kahoot_Player:
     def play_round(self):
         while (True):
             try:
-                q1 = self.driver.find_element_by_xpath("/html/body/div/div[1]/main/div[2]/div/div/button[1]")
-                q2 = self.driver.find_element_by_xpath("/html/body/div/div[1]/main/div[2]/div/div/button[2]")
-                q3 = self.driver.find_element_by_xpath("/html/body/div/div[1]/main/div[2]/div/div/button[3]")
-                q4 = self.driver.find_element_by_xpath("/html/body/div/div[1]/main/div[2]/div/div/button[4]")
-                questions = [q1 ,q2 ,q3 , q4]
+                button_index = 1
+                questions = list()
+                while True:
+                    try:
+                        q = self.driver.find_element_by_xpath(f"/html/body/div/div[1]/main/div[2]/div/div/button[{button_index}]")
+                        questions.append(q)
+                        button_index += 1
+                    except:
+                        break
                 resp = random.choice(questions)
                 resp.click()
                 print("answered {} , question:{}".format(self.name, self.quest_number))
